@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2025 The Stdlib Authors.
@@ -16,26 +16,32 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
 
-// MODULES //
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@main/index.d.ts"/>
 
-var filled = require( '@stdlib/array-base-filled' );
-var put = require( '@stdlib/array-base-put' );
+import { Collection, AccessorArrayLike } from '@stdlib/types/array';
+import { Mode } from '@stdlib/types/ndarray';
 
+/**
+* Index array.
+*/
+type IndexArray = Collection<number> | AccessorArrayLike<number>;
 
-// MAIN //
+/**
+* Values array.
+*/
+type ValuesArray<T> = Collection<T> | AccessorArrayLike<T>;
 
 /**
 * Scatters a list of provided values to specified indices in a new filled "generic" array.
 *
-* @param {*} fill - fill value
-* @param {NonNegativeInteger} len - output array length
-* @param {IntegerArray} indices - list of indices
-* @param {Collection} values - values to scatter
-* @param {string} mode - index mode
-* @throws {Error} third argument must be broadcast compatible with the second argument
-* @returns {Array} output array
+* @param fill - fill value
+* @param len - output array length
+* @param indices - list of element indices
+* @param values - values to scatter
+* @param mode - index mode
+* @returns output array
 *
 * @example
 * var indices = [ 1, 2 ];
@@ -45,17 +51,12 @@ var put = require( '@stdlib/array-base-put' );
 * // returns [ null, 20, 30, null ]
 *
 * @example
-* var indices = [ 1, 2 ];
-* var values = [ 30 ];
-*
-* var out = scatterFilled( null, 4, indices, values, 'throw' );
+* var out = scatterFilled( null, 4, [ 1, 2 ], [ 30 ], 'throw' );
 * // returns [ null, 30, 30, null ]
 */
-function scatterFilled( fill, len, indices, values, mode ) {
-	return put( filled( fill, len ), indices, values, mode );
-}
+declare function scatterFilled<T = unknown, U = unknown>( fill: T, len: number, indices: IndexArray, values: ValuesArray<U>, mode: Mode ): Array<T | U>;
 
 
 // EXPORTS //
 
-module.exports = scatterFilled;
+export = scatterFilled;
